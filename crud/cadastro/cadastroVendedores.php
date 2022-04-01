@@ -1,19 +1,13 @@
 <?php
-	include '../conexao.php';
-	try{
-		$conexao = new PDO($dns,$user,$pass);
-        $query = 'insert into vendedor value(null, :CPF_Vendedor, :Nome);';
+	include '../classes/vendedor.php';
 
-        $stmt = $conexao->prepare($query);
-        $stmt->bindValue(':CPF_Vendedor',$_POST['cpf_vendedor']);
-        $stmt->bindValue(':Nome',$_POST['nome_vendedor']);
+    $cpfvendedor = $_POST['cpf_vendedor'];
+    $nomevendedor = $_POST['nome_vendedor'];
 
-        $stmt->execute();
-        echo "<img src='../images/jequiti.jpg' style='width: 100%; height: 100%;'/>";
-
-	} catch(PDOException $error){
-		echo "Error: ".$error->getMessage();
-	}
+    $v = new vendedor();
+    $v->setCPFVendedor($cpfvendedor);
+    $v->setNomeVendedor($nomevendedor);
+    $v->cadastrar($v->getCPFVendedor(), $v->getNomeVendedor());
 ?>
 
 <html>

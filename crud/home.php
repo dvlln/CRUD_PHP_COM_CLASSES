@@ -3,9 +3,9 @@
     include 'classes/veiculo.php';
     include 'classes/vendedor.php';
 
-    $Cliente = new cliente();
-    $Vendedor = new vendedor();
-    $Veiculo = new veiculo();
+    $C = new cliente();
+    $Ven = new vendedor();
+    $Vei = new veiculo();
 ?>
 
 <!DOCTYPE html>
@@ -26,19 +26,14 @@
                 <h1>Concessionaria de Deus</h1>
             </div>
 
-            <!-- NAV BAR -->
-            <div class="Nav">
-                <ul>
-                    <li><a href="compra.php">COMPRA</a></li>
-                </ul>
-            </div>
-
             <!-- CADASTRO DE TODAS AS TABELAS -->
             <div class="Form_bloco">
                 <div class="Titulo" id="CADASTRO">
                     <h3>CADASTRO</h3>
                 </div>
                 <div class=" Formulario">
+
+                    <!-- CLIENTES -->
                     <div>
                         <h4>Clientes</h4>
                         <?php
@@ -63,6 +58,8 @@
                         </form>
                     </div>
 
+
+                    <!-- VENDEDORES -->
                     <div>
                         <h4>Vendedores</h4>
                         <?php
@@ -72,16 +69,8 @@
                                 echo '<form method="POST" action="cadastro/cadastroVendedores.php">';
                             }
 		                ?>
-                        <label>CPF: <input type="text" name="cpf_vendedor" value="<?php
-                            if(isset($_GET['cpf_vendedor'])){
-                                echo $_GET['cpf_vendedor'];
-                            }
-		                ?>" /></label>
-                        <label>Nome: <input type="text" name="nome_vendedor" value="<?php
-                            if(isset($_GET['nome_vendedor'])){
-                                echo $_GET['nome_vendedor'];
-                            }
-		                ?>" /></label>
+                        <label>CPF: <input type="text" name="cpf_vendedor" value="" /></label>
+                        <label>Nome: <input type="text" name="nome_vendedor" value="" /></label>
                         <?php
                             if(isset($_GET['id_vendedor'])){
                                 echo '<input type="hidden" name="id_vendedor" value="'.$_GET['id_vendedor'].'">';
@@ -96,6 +85,8 @@
                         </form>
                     </div>
 
+
+                    <!-- VEICULOS -->
                     <div>
                         <h4>Veiculos</h4>
                         <?php
@@ -105,26 +96,10 @@
                                 echo '<form method="POST" action="cadastro/cadastroVeiculos.php">';
                             }
 		                ?>
-                        <label>Tipo: <input type="text" name="tipo" value="<?php
-                            if(isset($_GET['tipo'])){
-                                echo $_GET['tipo'];
-                            }
-		                ?>" /></label>
-                        <label>Marca: <input type="text" name="marca" value="<?php
-                            if(isset($_GET['marca'])){
-                                echo $_GET['marca'];
-                            }
-		                ?>" /></label>
-                        <label>Modelo: <input type="text" name="modelo" value="<?php
-                            if(isset($_GET['modelo'])){
-                                echo $_GET['modelo'];
-                            }
-		                ?>" /></label>
-                        <label>Cor: <input type="text" name="cor" value="<?php
-                            if(isset($_GET['cor'])){
-                                echo $_GET['cor'];
-                            }
-		                ?>" /></label>
+                        <label>Tipo: <input type="text" name="tipo" value="" /></label>
+                        <label>Marca: <input type="text" name="marca" value="" /></label>
+                        <label>Modelo: <input type="text" name="modelo" value="" /></label>
+                        <label>Cor: <input type="text" name="cor" value="" /></label>
                         <?php
                             if(isset($_GET['id_veiculo'])){
                                 echo '<input type="hidden" name="id_veiculo" value="'.$_GET['id_veiculo'].'">';
@@ -150,21 +125,21 @@
                     <div>
                         <h4>Clientes</h4>
                         <?php
-                            $Cliente->listar();
+                            $C->listar();
                         ?>
                     </div>
 
                     <div>
                         <h4>Vendedores</h4>
                         <?php
-                            $Vendedor->listar();
+                            $Ven->listar();
                         ?>
                     </div>
 
                     <div>
                         <h4>Veiculos</h4>
                         <?php
-                            $Veiculo->listar();
+                            $Vei->listar();
                         ?>
                     </div>
                 </div>

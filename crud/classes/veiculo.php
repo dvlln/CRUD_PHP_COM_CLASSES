@@ -35,40 +35,38 @@
             }
         }
 
-        function cadastrar(){
+        function cadastrar($tipo, $marca, $modelo, $cor){
             try{
-                include_once 'conexao.php';
+                include '../conexao.php';
                 $conexao = new PDO($dns,$user,$pass);
                 $query = 'insert into veiculo value(null, :Tipo, :Marca, :Modelo, :Cor);';
 
                 $stmt = $conexao->prepare($query);
-                $stmt->bindValue(':Tipo',$_POST['tipo']);
-                $stmt->bindValue(':Marca',$_POST['marca']);
-                $stmt->bindValue(':Modelo',$_POST['modelo']);
-                $stmt->bindValue(':Cor',$_POST['cor']);
+                $stmt->bindValue(':Tipo', $tipo);
+                $stmt->bindValue(':Marca',$marca);
+                $stmt->bindValue(':Modelo',$modelo);
+                $stmt->bindValue(':Cor',$cor);
 
                 $stmt->execute();
-                echo "<a href='../home.php' />";
-
             } catch(PDOException $error){
                 echo "Error: ".$error->getMessage();
             }
         }
 
-        function alterar(){
+        function alterar($id, $tipo, $marca, $modelo, $cor){
             try{
-                include_once 'conexao.php';
+                include '../conexao.php';
                 $conexao = new PDO($dns,$user,$pass);
                 
                 $query = "update veiculo set ID_Veiculo=:id, Tipo=:tipo, Marca=:marca, Modelo=:modelo, Cor=:cor where ID_Veiculo=:id;";
 
                 $stmt = $conexao->prepare($query);
 
-                $stmt->bindValue(':id',$_POST['id_veiculo']);
-                $stmt->bindValue(':tipo',$_POST['tipo']);
-                $stmt->bindValue(':marca',$_POST['marca']);
-                $stmt->bindValue(':modelo',$_POST['modelo']);
-                $stmt->bindValue(':cor',$_POST['cor']);
+                $stmt->bindValue(':id',$id);
+                $stmt->bindValue(':Tipo', $tipo);
+                $stmt->bindValue(':Marca',$marca);
+                $stmt->bindValue(':Modelo',$modelo);
+                $stmt->bindValue(':Cor',$cor);
 
                 $stmt->execute();
 
@@ -80,16 +78,16 @@
             }
         }
 
-        function deletar(){
+        function deletar($id){
             try{
-                include_once 'conexao.php';
+                include '../conexao.php';
                 $conexao = new PDO($dns,$user,$pass);
                 
                 $query = "delete from veiculo where ID_Veiculo=:id;";
 
                 $stmt = $conexao->prepare($query);
 
-                $stmt->bindValue(':id',$_GET['id_veiculo']);
+                $stmt->bindValue(':id',$id);
 
                 $stmt->execute();
                 echo "<a href='../home.php' />";

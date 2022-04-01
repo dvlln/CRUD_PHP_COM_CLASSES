@@ -35,36 +35,34 @@
             }
         }
 
-        public function cadastrar($idcliente, $nomecliente){
+        public function cadastrar($cpfcliente, $nomecliente){
             try{
                 include '../conexao.php';
                 $conexao = new PDO($dns,$user,$pass);
                 $query = 'insert into cliente value(null,:CPF_Cliente, :Nome);';
 
                 $stmt = $conexao->prepare($query);
-                $stmt->bindValue(':CPF_Cliente', $idcliente);
+                $stmt->bindValue(':CPF_Cliente', $cpfcliente);
                 $stmt->bindValue(':Nome', $nomecliente);
 
                 $stmt->execute();
-                echo "<a href='../home.php' />";
-
             } catch(PDOException $error){
                 echo "Error: ".$error->getMessage();
             }
         }
 
-        public function alterar(){
+        public function alterar($idcliente, $cpfcliente, $nomecliente){
             try{
-                include_once 'conexao.php';
+                include '../conexao.php';
                 $conexao = new PDO($dns,$user,$pass);
                 
                 $query = "update cliente set CPF_Cliente=:cpf_cliente, Nome_Cliente=:nome where ID_Cliente=:id;";
 
                 $stmt = $conexao->prepare($query);
 
-                $stmt->bindValue(':id',$_POST['id_cliente']);
-                $stmt->bindValue(':cpf_cliente',$_POST['cpf_cliente']);
-                $stmt->bindValue(':nome',$_POST['nome_cliente']);
+                $stmt->bindValue(':id',$idcliente);
+                $stmt->bindValue(':cpf_cliente',$cpfcliente);
+                $stmt->bindValue(':nome',$nomecliente);
 
                 $stmt->execute();
                 echo "<a href='../home.php' />";
@@ -75,16 +73,16 @@
             }
         }
 
-        function deletar(){
+        function deletar($id){
             try{
-                include_once 'conexao.php';
+                include '../conexao.php';
                 $conexao = new PDO($dns,$user,$pass);
                 
                 $query = "delete from cliente where ID_Cliente=:id;";
 
                 $stmt = $conexao->prepare($query);
 
-                $stmt->bindValue(':id',$_GET['id_cliente']);
+                $stmt->bindValue(':id',$id);
 
                 $stmt->execute();
                 echo "<a href='../home.php' />";

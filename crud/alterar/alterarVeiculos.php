@@ -1,26 +1,18 @@
 <?php
-    include '../conexao.php';
-    try{
-        $conexao = new PDO($dns,$user,$pass);
-        
-        $query = "update veiculo set ID_Veiculo=:id, Tipo=:tipo, Marca=:marca, Modelo=:modelo, Cor=:cor where ID_Veiculo=:id;";
+    include '../classes/veiculo.php';
+    
+    $idveiculo = $_POST['id_veiculo'];
+    $tipo = $_POST['tipo'];
+    $marca = $_POST['marca'];
+    $modelo = $_POST['modelo'];
+    $cor = $_POST['cor'];
 
-        $stmt = $conexao->prepare($query);
-
-        $stmt->bindValue(':id',$_POST['id_veiculo']);
-        $stmt->bindValue(':tipo',$_POST['tipo']);
-        $stmt->bindValue(':marca',$_POST['marca']);
-        $stmt->bindValue(':modelo',$_POST['modelo']);
-        $stmt->bindValue(':cor',$_POST['cor']);
-
-        $stmt->execute();
-
-        echo "<img src='../images/pedido.png' style='width: 100%; height: 100%;'/>";
-
-    } catch(PDOException $error){
-        echo "Error: ".$error->getMessage();
-        echo '<br>'.'<a href="../home.php">Voltar</a>';
-    }
+    $v = new veiculo();
+    $v->setTipo($tipo);
+    $v->setMarca($marca);
+    $v->setModelo($modelo);
+    $v->setCor($cor);
+    $v->alterar($v->$idveiculo, $v->getTipo(), $v->getMarca(), $v->getModelo(), $v->getCor());
 ?>
 
 <html>

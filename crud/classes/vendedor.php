@@ -33,36 +33,34 @@
             }
         }
 
-        function cadastrar(){
+        function cadastrar($cpfvendedor, $nomevendedor){
             try{
-                include_once 'conexao.php';
+                include '../conexao.php';
                 $conexao = new PDO($dns,$user,$pass);
                 $query = 'insert into vendedor value(null, :CPF_Vendedor, :Nome);';
 
                 $stmt = $conexao->prepare($query);
-                $stmt->bindValue(':CPF_Vendedor',$_POST['cpf_vendedor']);
-                $stmt->bindValue(':Nome',$_POST['nome_vendedor']);
+                $stmt->bindValue(':CPF_Vendedor',$cpfvendedor);
+                $stmt->bindValue(':Nome',$nomevendedor);
 
                 $stmt->execute();
-                echo "<a href='../home.php' />";
-
             } catch(PDOException $error){
                 echo "Error: ".$error->getMessage();
             }
         }
 
-        function alterar(){
+        function alterar($id, $cpfvendedor, $nomevendedor){
             try{
-                include_once 'conexao.php';
+                include '../conexao.php';
                 $conexao = new PDO($dns,$user,$pass);
                 
                 $query = "update vendedor set CPF_Vendedor=:cpf_vendedor, Nome_Vendedor=:nome where ID_Vendedor=:id;";
 
                 $stmt = $conexao->prepare($query);
 
-                $stmt->bindValue(':id',$_POST['id_vendedor']);
-                $stmt->bindValue(':cpf_vendedor',$_POST['cpf_vendedor']);
-                $stmt->bindValue(':nome',$_POST['nome_vendedor']);
+                $stmt->bindValue(':id',$id);
+                $stmt->bindValue(':cpf_vendedor',$cpfvendedor);
+                $stmt->bindValue(':nome',$nomevendedor);
 
                 $stmt->execute();
 
@@ -74,16 +72,16 @@
             }
         }
 
-        function deletar(){
+        function deletar($id){
             try{
-                include_once 'conexao.php';
+                include '../conexao.php';
                 $conexao = new PDO($dns,$user,$pass);
                 
                 $query = "delete from vendedor where ID_Vendedor=:id;";
 
                 $stmt = $conexao->prepare($query);
 
-                $stmt->bindValue(':id',$_GET['id_vendedor']);
+                $stmt->bindValue(':id',$id);
 
                 $stmt->execute();
                 echo "<a href='../home.php' />";

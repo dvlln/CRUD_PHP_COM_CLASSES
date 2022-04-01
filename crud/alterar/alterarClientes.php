@@ -1,23 +1,14 @@
 <?php
-    include '../conexao.php';
-    try{
-        $conexao = new PDO($dns,$user,$pass);
-        
-        $query = "update cliente set CPF_Cliente=:cpf_cliente, Nome_Cliente=:nome where ID_Cliente=:id;";
+    include '../classes/cliente.php';
+    
+    $idcliente = $_POST['id_cliente'];
+    $cpfcliente = $_POST['cpf_cliente'];
+    $nomecliente = $_POST['nome_cliente'];
 
-        $stmt = $conexao->prepare($query);
-
-        $stmt->bindValue(':id',$_POST['id_cliente']);
-        $stmt->bindValue(':cpf_cliente',$_POST['cpf_cliente']);
-        $stmt->bindValue(':nome',$_POST['nome_cliente']);
-
-        $stmt->execute();
-        echo "<img src='../images/pedido.png' style='width: 100%; height: 100%;'/>";
-        
-
-    } catch(PDOException $error){
-        echo "Error: ".$error->getMessage();
-    }
+    $c = new cliente();
+    $c->setCPFCliente($cpfcliente);
+    $c->setNomeCliente($nomecliente);
+    $c->alterar($idcliente, $cpfcliente, $nomecliente);
 ?>
 
 <html>

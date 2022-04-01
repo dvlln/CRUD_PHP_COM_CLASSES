@@ -1,20 +1,10 @@
 <?php
-    include '../conexao.php';
-    try{
-        $conexao = new PDO($dns,$user,$pass);
-        
-        $query = "delete from vendedor where ID_Vendedor=:id;";
+    include '../classes/vendedor.php';
+    
+    $idvendedor = $_GET['id_vendedor'];
 
-        $stmt = $conexao->prepare($query);
-
-        $stmt->bindValue(':id',$_GET['id_vendedor']);
-
-        $stmt->execute();
-        echo "<img src='../images/geraldo.png' style='width: 100%; height: 100%;'/>";
-
-    } catch(PDOException $error){
-        echo "Error: ".$error->getMessage();
-    }
+    $v = new vendedor();
+    $v->deletar($idvendedor);
 ?>
 
 <html>

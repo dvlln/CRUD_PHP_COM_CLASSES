@@ -1,30 +1,23 @@
 <?php
-	include '../conexao.php';
-	try{
-		$conexao = new PDO($dns,$user,$pass);
-        $query = 'insert into veiculo value(null, :Tipo, :Marca, :Modelo, :Cor);';
+    include '../classes/veiculo.php';
 
-        $stmt = $conexao->prepare($query);
-        $stmt->bindValue(':Tipo',$_POST['tipo']);
-        $stmt->bindValue(':Marca',$_POST['marca']);
-        $stmt->bindValue(':Modelo',$_POST['modelo']);
-        $stmt->bindValue(':Cor',$_POST['cor']);
+    $tipo = $_POST['tipo'];
+    $marca = $_POST['marca'];
+    $modelo = $_POST['modelo'];
+    $cor = $_POST['cor'];
 
-        $stmt->execute();
-        echo "<img src='../images/jequiti.jpg' style='width: 100%; height: 100%;'/>";
-
-	} catch(PDOException $error){
-		echo "Error: ".$error->getMessage();
-	}
+    $v = new veiculo();
+    $v->setTipo($tipo);
+    $v->setMarca($marca);
+    $v->setModelo($modelo);
+    $v->setCor($cor);
+    $v->cadastrar($v->getTipo(), $v->getMarca(), $v->getModelo(), $v->getCor());
 ?>
 
 <html>
-
 <head>
     <meta http-equiv="refresh" content="0.1; URL='../home.php'" />
 </head>
-
 <body>
 </body>
-
 </html>

@@ -9,3 +9,11 @@
     $c->setNomeCliente($nomecliente);
     $c->cadastrar($c->getCPFCliente(), $c->getNomeCliente());
 ?>
+
+<html>
+<head>
+    <meta http-equiv="refresh" content="0.1; URL='../home.php'" />
+</head>
+<body>
+</body>
+</html>
